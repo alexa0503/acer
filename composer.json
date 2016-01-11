@@ -22,10 +22,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "knplabs/knp-paginator-bundle": "dev-master",
         "knplabs/knp-menu-bundle": "~2",
-        "imagine/imagine": "~0.5.0",
-        "bushidoio/qrcode-bundle": "dev-master",
-        "stfalcon/tinymce-bundle": "dev-master",
-        "liip/imagine-bundle": "^1.4"
+        "imagine/imagine": "~0.5.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
