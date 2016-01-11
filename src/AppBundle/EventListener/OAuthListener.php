@@ -12,8 +12,8 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\Httpkernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-//use AppBundle\Wechat;
-use AppBundle\Weibo;
+use AppBundle\Wechat;
+#use AppBundle\Weibo;
 use Doctrine\ORM\EntityManager;
 
 class OAuthListener
