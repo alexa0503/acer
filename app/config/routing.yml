@@ -23,8 +23,8 @@ admin_bind_member:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
-bushidoio_qrcode:
-    resource: "@BushidoIOQRCodeBundle/Controller/"
-    type:     annotation
-_liip_imagine:
-    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+#bushidoio_qrcode:
+#    resource: "@BushidoIOQRCodeBundle/Controller/"
+#    type:     annotation
+#_liip_imagine:
+#    resource: "@LiipImagineBundle/Resources/config/routing.xml"
