@@ -1,5 +1,5 @@
 /* Global Setting */
-body{margin:0; padding:0;text-align:left; font-size:12px; font-family:'Microsoft YaHei',Arial; background:#FFF;}
+body{margin:0; padding:0;text-align:left; font-size:12px; font-family:'Microsoft YaHei',Arial; background:#c83527;}
 table{border-collapse:collapse;}
 td,th{padding:0;}
 ul,li,dd,dl,dt{margin:0; padding:0; list-style:none; word-break:break-all;}
@@ -12,56 +12,60 @@ hr{background:none;border:none;border-bottom:1px solid #CCC;#border-bottom:0;}
 a{text-decoration:none; border:0; outline:none; blr:expression(this.onFocus=this.blur());}
 select,input,textarea{font-family:inherit; outline:none;}
 
-.wrapper{ width:640px; margin:0 auto; border:none; padding:0;}
+.wrapper{ width:1000px; margin:0 auto; border:none; padding:0;}
 .innerDiv{ width:100%; height:100%; position:relative;}
 .abs{ position:absolute;}
 .dsb{ display:block;}
 
+.outer{ width:640px; overflow:hidden; margin:0 auto;}
+.h1008{ width:640px; height:1008px;}
+.bgImg{ position:absolute; left:0; top:-16px;}
 
-/*仓库查询*/
-.selectLine{ height:66px; width:605px; padding:0 0 0 35px; border-bottom:1px solid #dfdfdf; background:url(../images/icon1.png) 575px 10px no-repeat #FFF;}
-.selectLine select{ background:none; border:none; display:block; width:605px; height:66px; line-height:66px; color:#828282; font-size:28px; -webkit-appearance:none; appearance:none;}
-.loftLine{ border-bottom:1px solid #dfdfdf; padding:10px; width:620px;}
-.loftLineImg{ float:left; width:180px; height:135px;}
-.llRightInfo{ float:right; width:420px; padding:0 15px 0 0; color:#333; font-size:28px;}
-.llName{ width:418px; height:76px; line-height:38px; padding:0 0 5px 0; color:#333; font-size:28px; text-align:right; word-break:break-all; overflow:hidden;}
-.llBtns{ text-align:right; width:420px;}
-.llBtns a{ margin-left:6px;}
+.page1Btn1{ left:44px; top:638px;}
+.page1Btn2{ left:322px; top:638px;}
+.page1Btn3{ left:90px; top:743px;}
+.page1Btn4{ left:328px; top:743px;}
 
-.topTitle{ background:#04564a; border-bottom:2px solid #079077; height:86px; line-height:86px; color:#FFF; font-size:28px; text-align:center;}
-.titleBack{ position:absolute; left:0; top:10px; padding:20px; line-height:100%;}
-.loftIntro{ padding:0 0 100px 0;}
-.liLine{ padding:16px 45px 16px 35px; width:560px; border-bottom:1px solid #dfdfdf;}
-.liTitle{ font-size:28px; line-height:36px; color:#04564a; width:160px; float:left;}
-.liTxt{ font-size:28px; line-height:36px; color:#666; width:360px; float:right; word-break:break-all;}
+.logo{ position:absolute; left:30px; top:30px;}
 
-.liLine2{ padding:16px 45px 16px 195px; width:400px; border-bottom:1px solid #dfdfdf;}
-.liLine2 ul li{ background:url(../images/icon3.png) 15px 14px no-repeat; font-size:28px; line-height:36px; color:#666; width:360px; padding:0 0 10px 40px; width:360px; word-break:break-all;}
-.bottomTool{ background:url(../images/bottomToolBg.jpg) 0 0 repeat-x; width:640px; height:100px; position:fixed; left:50%; bottom:0; margin-left:-320px;}
-.bottomTxt{ width:300px; position:absolute; font-size:30px; line-height:30px; color:#FFF; left:60px; top:40px;}
-.bottomTxt a{ color:#FFF;}
-.bottomBtn1{ position:absolute; left:387px; top:26px;}
-.mapBlock{ width:640px; height:947px; overflow:hidden; background:#accda7;}
-.mapNote{ background:url(../images/whiteBg.png) 0 0 repeat; width:605px; padding:30px 0 24px 35px; margin-left:-320px; position:fixed; bottom:100px; left:50%; font-size:24px; line-height:24px; border-top:1px solid #9ca29b；}
+.ruleBlock{ width:640px; height:778px; overflow-x:hidden; overflow-y:auto; position:absolute; left:0; top:122px;}
+.ruleBtn1{ position:absolute; left:426px; top:910px;}
 
+.popBg{ width:100%; height:100%; position:fixed; left:0; top:0; opacity:0; -webkit-opacity:0; background:#000000;}
+.onceAlert{ background:url(../images/pop1.png) 0 0 no-repeat; width:640px; height:380px; position:fixed; left:50%; top:50%; margin:-190px 0 0 -320px;}
+.onceBtn1{ left:549px; top:0;}
 
-/*专享活动*/
-.elLine{ border-bottom:1px solid #dfdfdf; padding:10px; width:620px; height:135px; background:url(../images/icon2.png) 595px 60px no-repeat;}
-.elLine a{ display:block; width:100%; height:100%;}
-.elImg{ width:190px; height:135px; float:left;}
-.elRightTxt{ float:right; width:406px;}
-.elTitle{ width:406px; text-align:left; color:#04564a; font-size:28px; line-height:36px; word-break:break-all;}
-.elTitle span{ font-size:24px; color:#666666;}
+.noAward1{ width:640px; height:1039px; position:absolute; left:0; top:-16px; background:url(../images/noAward1.jpg) 0 0 no-repeat;}
+.noAward2{ width:640px; height:1039px; position:absolute; left:0; top:-16px; background:url(../images/noAward2.jpg) 0 0 no-repeat;}
 
-.eventDetail h1{ padding:30px 0 24px 35px; font-size:28px; color:#04564a; line-height:100%;}
-.edTxt{ padding:0 30px 30px 35px; width:575px; color:#666666; font-size:24px; line-height:36px; word-break:break-all;}
-.edTxt p{ padding-bottom:38px;}
+.shareNote{ background:url(../images/shareNote.png) 0 0 no-repeat; width:640px; overflow:hidden; position:fixed; left:50%; top:0; margin-left:-320px;}
 
+.bottomImg{ position:fixed; left:50%; bottom:0; margin-left:-320px;}
 
-/*参观预约*/
-.visitTitle{ padding:30px 0 24px 35px; font-size:28px; color:#04564a; line-height:100%;}
-.visitInfoLine{ padding:10px 0 30px 35px; color:#828282; font-size:28px; line-height:24px;}
-.visitInfoLine input{ background:#f9f9f9; border:1px solid #dfdfdf; width:554px; height:64px; padding:0 10px; line-height:64px; color:#333; font-size:28px;}
-.visitBtns{ padding:45px 0 30px 0; text-align:center;}
+.noAward1Btn1{ position:absolute; left:131px; top:711px;}
 
+.snid{ background:none; border:none; position:absolute; width:427px; height:77px; left:96px; top:482px; font-style:italic; font-size:28px; line-height:76px; text-align:center; color:#333333; padding:0 10px;}
+.codeBtn1{ position:absolute; left:140px; top:727px;}
 
+.awardBtn1{ left:168px; top:652px;}
+.awardBtn2{ left:218px; top:732px;}
+
+.myGiftList{ width:540px; height:162px; overflow:hidden; position:absolute; left:48px; top:147px;}
+#scrollbar2{ width:540px;}
+#scrollbar2 .viewport{ height:162px; overflow:hidden; position:relative; width:520px;}
+#scrollbar2 .overview{ left:0; list-style:none outside none; margin:0; padding:0; position:absolute; top:0;}
+#scrollbar2 .scrollbar{ background:none; float:right; position:relative; width:17px;}
+#scrollbar2 .track{ background:#e83421; height:100%; position:relative; width:5px;}
+#scrollbar2 .thumb{ background:url(../images/scrollImg1.png) top center no-repeat; cursor: pointer; left:-6px; position:absolute; top:0; width:17px;}
+#scrollbar2 .end{ background:url(../images/scrollImg2.png) top center no-repeat; width:17px; height:18px; position:absolute; left:0; bottom:-17px;}
+.giftBtn1{ left:50px; top:343px;}
+.giftBtn2{ left:393px; top:350px;}
+.giftTxt{ background:none; border:none; padding:0 10px; font-size:22px; height:34px; line-height:34px; position:absolute; color:#333333;}
+.giftTxt1{ width:136px; left:144px; top:568px;}
+.giftTxt2{ width:145px; left:414px; top:568px;}
+.giftTxt3{ width:275px; left:254px; top:621px;}
+.page3Btn1{ left:260px; top:675px;}
+.page3Btn2{ left:190px; top:690px;}
+
+.giftLine{ width:520px; height:84px; line-height:84px; color:#e83421; font-size:20px; line-height:84px; font-weight:bold; overflow:hidden;}
+.giftLine img{ vertical-align:-34px;}

@@ -1,14 +1,13 @@
 {% extends 'AppBundle:default:base.html.twig' %}
 {% block body %}
-{% block background %}
-<style>
-body{ background:#f3f3f3;}
-</style>
-{% endblock %}
-<div class="wrapper">
+<div class="outer">
 	{% block content %}
 	{% endblock %}
 </div>
+	{% block navContent %}
+	<div class="shareNote" onClick="closeShareNote();" style="display:none;"></div>
+	<img src="{{ asset('bundles/app/default/') }}images/logo.png" class="logo">
+	{% endblock %}
 {% endblock %}
 {% block javascripts %}
 {% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'AppBundle:default:layout.html.twig' %}
+{% block content %}
+   <div class="h1008">
+        <div class="innerDiv">
+            <img src="{{ asset('bundles/app/default/') }}images/page2.jpg" class="abs bgImg dsb">
+            <input type="tel" class="snid" placeholder="请输入您购买产品的SNID号" maxlength="11">
+            <a href="javascript:void(0);" onClick="codeLottery();" class="abs codeBtn1"><img src="{{ asset('bundles/app/default/') }}images/space.gif" width="370" height="72"></a>
+            <a href="javascript:void(0);" class="bottomImg"><img src="{{ asset('bundles/app/default/') }}images/bottomImg.png" class="dsb"></a>
+        </div>
+    </div>
+{% endblock %}
+{% block navContent %}
+<div class="popBg" style="display:none;"></div>
+<div class="onceAlert" style="display:none;">
+    <div class="innerDiv">
+        <a href="javascript:void(0);" onClick="closeOncePop();" class="abs onceBtn1"><img src="{{ asset('bundles/app/default/') }}images/space.gif" width="73" height="60"></a>
+    </div>
+</div>
+
+{{ parent() }}
+{% endblock %}
+{% block javascripts %}
+
+<script>
+var canCodeLottery=true;
+function codeLottery(){
+    var ccode=$.trim($('.snid').val());
+    if(ccode.toString().length!=11){
+        alert('请输入11位SNID号');
+        return false;
+    }
+    else if(canCodeLottery){
+        canCodeLottery=false;
+        $.ajax({
+            url: '{{ url("_lottery",{type:"b"}) }}',
+            dataType: 'json',
+            data: {code:ccode},
+            success: function(data){
+                if(data.ret == 0){
+                    window.location.href="{{ url('_award') }}"
+                }
+                //已抽
+                else if(data.ret == 1000){
+                    showOnce();
+                }
+                //未中奖
+                else if(data.ret == 2000){
+                    window.location.href="{{ url('_no_award',{type:2}) }}";
+                }
+                else{
+                    canCodeLottery=true;
+                    alert(data.msg);
+                }
+            },
+            error: function(){
+                canCodeLottery=true;
+                alert('请求失败~');
+            }
+
+        });
+        
+    }
+}
+</script>
+{% endblock %}

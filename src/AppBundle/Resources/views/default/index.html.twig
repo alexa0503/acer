@@ -1,125 +1,90 @@
 {% extends 'AppBundle:default:layout.html.twig' %}
 {% block content %}
-   <img src="{{ asset('bundles/app/default/') }}images/topBar.jpg" class="dsb">
-    
-    <img src="{{ asset('bundles/app/default/') }}images/loftImg1.jpg" class="dsb">
-    <div class="selectLine">
-        <select name="district" id="district">
-            <option value="">选择地区</option>
-            <option value="华东">华东</option>
-            <option value="华北">华北</option>
-            <option value="华南">华南</option>
-            <option value="华西">华西</option>
-        </select>
-    </div>
-    <div class="selectLine">
-        <select name="city" id="city">
-            <option value="">选择城市</option>
-        </select>
-    </div>
-    <div class="selectLine">
-        <select name="area" id="area">
-            <option value="">仓库面积</option>
-            <option value="0~10000">0~10000</option>
-            <option value="10000~20000">10000~20000</option>
-            <option value="20000~30000">20000~30000</option>
-            <option value="30000~9999999">30000以上</option>
-        </select>
-    </div>
-    <div class="loftList">
-    {% for storage in storages%}
-        <div class="loftLine" data-district="{{ storage.district }}" data-city="{{ storage.city }}" data-area="{{ storage.area }}">
-            <img src="{{ (asset('/uploads/')~storage.imgUrl) | imagine_filter('thumb2') }}" class="loftLineImg">
-            <div class="llRightInfo">
-                <div class="llName">{{ storage.title }}</div>
-                <div class="llBtns">
-                    <a href="{{ url('_storage',{id:storage.id}) }}"><img src="{{ asset('bundles/app/default/') }}images/btn2.png"></a>
-                    <a href="{{ url('_visit',{id:storage.id}) }}"><img src="{{ asset('bundles/app/default/') }}images/btn3.png"></a>
+    <div class="h1008">
+        <div class="innerDiv">
+            <img src="{{ asset('bundles/app/default/') }}images/page1.jpg" class="abs bgImg dsb">
+            <a href="javascript:void(0);" onClick="lotteryA();" class="abs page1Btn1"><img src="{{ asset('bundles/app/default/') }}images/space.gif" width="270" height="75"></a>
+            <a href="javascript:void(0);" onClick="lotteryB();" class="abs page1Btn2"><img src="{{ asset('bundles/app/default/') }}images/space.gif" width="260" height="72"></a>
+            <a href="javascript:void(0);" onClick="showRule();" class="abs page1Btn3"><img src="{{ asset('bundles/app/default/') }}images/space.gif" width="220" height="60"></a>
+            <a href="{{ url('_gifts') }}" class="abs page1Btn4"><img src="{{ asset('bundles/app/default/') }}images/space.gif" width="220" height="60"></a>
+            
+            <div class="rule" style="display:none;">
+                <img src="{{ asset('bundles/app/default/') }}images/ruleBg.jpg" class="abs bgImg ruleBg dsb">
+                <div class="ruleBlock">
+                    <img src="{{ asset('bundles/app/default/') }}images/rule.png">
                 </div>
+                <a href="javascript:void(0);" onClick="closeRule();" class="abs ruleBtn1"><img src="{{ asset('bundles/app/default/') }}images/space.gif" width="176" height="59"></a>
             </div>
-            <div class="clear"></div>
         </div>
-    {% endfor %}
     </div>
 {% endblock %}
+{% block navContent %}
+
+<div class="popBg" style="display:none;"></div>
+<div class="onceAlert" style="display:none;">
+    <div class="innerDiv">
+        <a href="javascript:void(0);" onClick="closeOncePop();" class="abs onceBtn1"><img src="{{ asset('bundles/app/default/') }}images/space.gif" width="73" height="60"></a>
+    </div>
+</div>
+{{ parent() }}
+{% endblock %}
 {% block javascripts %}
-    <script type="text/javascript">
-    $(document).ready(function(){
-        $('#district').val('');
-        $('#city').val('');
-        $('#district').change(function(){
-        var district = $('#district').val();
-        $('#city').empty().html('<option value="">选择城市</option>');
-        var url = '{{ url("_city") }}';
-        var html = '';
-        $.getJSON(url, {district:district}, function(json){
-            if(json && json.ret == 0){
-                $.each(json.data,function(key,value){
-                    html += '<option value="'+ value +'">'+ value +'</option>';
-                })
-                $('#city').append(html);
+<script>
+var canLotteryA=true;
+var canLotteryB=true;
+
+function lotteryA(){//人人抽
+    $.ajax({
+        url: '{{ url("_lottery",{type:"a"}) }}',
+        dataType: 'json',
+        success: function(data){
+            if(data.ret == 0){
+                window.location.href="{{ url('_award') }}/"+data.id;
+            }
+            //已抽
+            else if(data.ret == 1000){
+                showOnce();
+            }
+            //未中奖
+            else if(data.ret == 2000){
+                window.location.href="{{ url('_no_award') }}";
             }
             else{
-                //alert('获取城市失败~')
+                alert(data.msg);
             }
-        })
-    })
-    $('#district,#city,#area').change(function(){
-        var district = $('#district').val();
-        var city = $('#city').val();
-        var area = $('#area').val();
-        $('.loftLine').each(function(i){
-            var s = false;//默认显示
-            var dataDistrict = $(this).attr('data-district');
-            var dataCity = $(this).attr('data-city');
-            var dataArea = $(this).attr('data-area');
-            if( district != '' && district != dataDistrict){
-                s = true;
-            }
+        },
+        error: function(){
+            alert('请求失败~');
+        }
 
-            if( city != '' && city != dataCity){
-                s = true;
-            }
-
-            if( area != '' ){
-                var a = area.split('~');
-                if(dataArea < a[0] || dataArea > a[1]){
-                    s = true;
-                }
-            }
-
-            if(s == true){
-                $(this).hide();
-            }
-            else{
-                $(this).show();
-            }
-        });
     });
-        /*
-        $('#district,#city,#area').change(function(){
-            var district = $('#district').val();
-            var city = $('#city').val();
-            var area = $('#area').val();
-            if( district != '' && city != '' && area != ''){
-                $('.loftList').html('<div class="llName">加载中...</div>');
-                var url = '{{ url("_storage_list") }}';
-                $.getJSON(url, {district:district,city:city,area:area}, function(json){
-                    //$('#storage').html(data);
-                    var html = '';
-                    if(json && json.ret == 0){
-                        $.each(json.data,function(i){
-                            html += '<div class="loftLine"><img src="'+'{{ asset("uploads/") }}'+json.data[i].imgUrl+'" class="loftLineImg"><div class="llRightInfo"><div class="llName">'+json.data[i].title+'</div><div class="llBtns"><a href="'+json.data[i].detailUrl+'"><img src="'+'{{ asset("bundles/app/default/") }}'+'images/btn2.png"></a><a href="'+json.data[i].visitUrl+'"><img src="'+'{{ asset("bundles/app/default/") }}'+'images/btn3.png"></a></div></div><div class="clear"></div></div>';
-                        })
-                    }
-                    else{
-                        html = '<div class="llName">没有您需要的结果</div>';
-                    }
-                    $('.loftList').html(html);
-                })
+}
+    
+function lotteryB(){//人人抽
+    $.ajax({
+        url: '{{ url("_lottery",{type:"b"}) }}',
+        dataType: 'json',
+        success: function(data){
+            if(data.ret == 3000){
+                window.location.href="{{ url('_code') }}"
             }
-        })
-        */
-    })
-    </script>
+            //已抽
+            else if(data.ret == 1000){
+                showOnce();
+            }
+            //未中奖
+            else if(data.ret == 2000){
+                window.location.href="{{ url('_no_award') }}";
+            }
+            else{
+                alert(data.msg);
+            }
+        },
+        error: function(){
+            alert('请求失败~');
+        }
+
+    });
+}
+</script>
 {% endblock %}

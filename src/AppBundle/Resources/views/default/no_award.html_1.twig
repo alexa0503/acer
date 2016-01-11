@@ -1,0 +1,18 @@
+{% extends 'AppBundle:default:layout.html.twig' %}
+{% block content %}
+    <div class="h1008">
+        <div class="innerDiv">
+            <div class="noAward1" >
+                <div class="innerDiv">
+                    <a href="javascript:void(0);" onClick="showShareNote();" class="abs noAward1Btn1"><img src="{{ asset('bundles/app/default/') }}images/space.gif" width="384" height="73"></a>
+                    <a href="javascript:void(0);" class="bottomImg"><img src="{{ asset('bundles/app/default/') }}images/bottomImg.png" class="dsb"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block navContent %}
+{{ parent() }}
+{% endblock %}
+{% block javascripts %}
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'AppBundle:default:layout.html.twig' %}
+{% block content %}
+
+    <div class="h1008">
+        <div class="innerDiv">
+            <img src="{{ asset('bundles/app/default/') }}images/page3.jpg" class="abs bgImg dsb">
+            <div class="myGiftList">
+                <div id="scrollbar2">
+                    <div class="scrollbar">
+                        <div class="track">
+                            <div class="thumb">
+                                <div class="end"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="viewport">
+                        <div class="overview">
+                            <div class="giftBlock">
+                                {% for log in logs %}
+                                    <div class="giftLine"><img src="{{ asset('bundles/app/default/') }}images/myAImg{{ log.awardType }}.png">中奖时间：{{ log.createTime | date('Y.n.    j') }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0);" onClick="showShareNote();" class="abs giftBtn1"><img src="{{ asset('bundles/app/default/') }}images/space.gif" width="320" height="66"></a>
+            <a href="index.html" class="abs giftBtn2"><img src="{{ asset('bundles/app/default/') }}images/space.gif" width="176" height="58"></a>
+            <input type="text" class="giftTxt giftTxt1" maxlength="20" value="{% if info is not null %}{{ info.username }}{% endif %}">
+            <input type="text" class="giftTxt giftTxt2" maxlength="11" value="{% if info is not null %}{{ info.mobile }}{% endif %}">
+            <input type="text" class="giftTxt giftTxt3" maxlength="50" value="{% if info is not null %}{{ info.address }}{% endif %}">
+            <a href="javascript:void(0);" onClick="submitInfo();" class="abs page3Btn1"><img src="{{ asset('bundles/app/default/') }}images/page3Btn1.png"></a>
+            <!--<img src="{{ asset('bundles/app/default/') }}images/page3Btn2.png" class="abs page3Btn2">-->
+            <a href="javascript:void(0);" class="bottomImg"><img src="{{ asset('bundles/app/default/') }}images/bottomImg.png" class="dsb"></a>
+        </div>
+    </div>
+{% endblock %}
+{% block navContent %}
+    <div class="shareNote" onClick="closeShareNote();" style="display:none;"></div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function(){
+            $('#scrollbar2').tinyscrollbar();
+        });
+
+        var canSubmit=true;
+        function submitInfo(){
+            if(canSubmit){
+                var iName=$.trim($('.giftTxt1').val());
+                var iTel=$.trim($('.giftTxt2').val());
+                var iAddress=$.trim($('.giftTxt3').val());
+
+                var regTel=/^1[3456789]\d{9}$/;
+
+                if(iName==''){
+                    alert('请输入姓名');
+                    return false;
+                }
+                else if(iTel==''){
+                    alert('请输入手机');
+                    return false;
+                }
+                else if(!regTel.test(iTel)){
+                    alert('请输入正确的手机号码');
+                    return false;
+                }
+                else if(iAddress==''){
+                    alert('请输入礼品寄送地址');
+                    return false;
+                }
+                else{
+                    $.ajax({
+                        url: '{{ url("_info_post") }}',
+                        dataType: 'json',
+                        data: {username:iName,mobile:iTel,address:iAddress},
+                        method: 'post',
+                        success: function(data){
+                            alert(data.msg);
+                            if(data.ret == 0){
+                                window.location.reload();
+                            }
+                        },
+                        error: function(){
+                            alert('服务器错误~')
+                        }
+                    })
+                }
+            }
+        }
+    </script>
+{% endblock %}

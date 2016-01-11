@@ -4,14 +4,12 @@
 <meta charset="utf-8">
 <meta name="format-detection" content="telephone=no" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>安博{% block title %} - 仓库查询{% endblock %}</title>
+<title>{% block title %}Acer{% endblock %}</title>
 
 <link rel="stylesheet" href="{{ asset('bundles/app/default/') }}css/common.css">
 <script src="{{ asset('bundles/app/default/') }}js/jquery-1.9.1.min.js"></script>
+<script src="{{ asset('bundles/app/default/') }}js/jquery.tinyscrollbar.min.js"></script>
 <script src="{{ asset('bundles/app/default/') }}js/common.js"></script>
-<script src="{{ asset('bundles/app/default/') }}js/hammer.min.js" ></script>
-<script src="{{ asset('bundles/app/default/') }}js/hammer.fakemultitouch.js" ></script>
-<script src="{{ asset('bundles/app/default/') }}js/hammer.showtouches.js" ></script>
 <!--移动端版本兼容 -->
 <script type="text/javascript">
          var phoneWidth =  parseInt(window.screen.width);
@@ -34,9 +32,5 @@
 	{% block body %}{% endblock %}
 	{% block javascripts %}
 	{% endblock %}
-<div style="display:none;">
-  <script src="http://s95.cnzz.com/z_stat.php?id=1257134806&web_id=1257134806" language="JavaScript"></script>
-</div>
-
 </body>
 </html>
