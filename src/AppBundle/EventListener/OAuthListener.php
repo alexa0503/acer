@@ -60,6 +60,9 @@ class OAuthListener
 			$appSecret = $this->container->getParameter('wechat_secret');
 			$wechat = new Wechat\Wechat($appId, $appSecret);
 			$wx = (Object)$wechat->getSignPackage();
+			$session->set('wechat_title', $this->container->getParameter('wechat_title'));
+			$session->set('wechat_desc', $this->container->getParameter('wechat_desc'));
+			$session->set('wechat_img_url', $this->container->getParameter('wechat_img_url'));
 			$session->set('wx_app_id', $wx->appId);
 			$session->set('wx_timestamp', $wx->timestamp);
 			$session->set('wx_nonce_str', $wx->nonceStr);
