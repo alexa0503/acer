@@ -30,9 +30,6 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
-        wechat_title: "%app.wechat_title%"
-        wechat_desc: "%app.wechat_desc%"
-        wechat_img_url: "%app.wechat_img_url%"
 
 # Assetic Configuration
 assetic:
