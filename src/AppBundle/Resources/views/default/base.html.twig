@@ -37,7 +37,7 @@
               title: '{{ app.session.get("wechat_title") }}',
               desc: '{{ app.session.get("wechat_desc") }}',
               shareUrl: '{{ app.session.get("wx_share_url") }}',
-              imgUrl: 'http://{{ app.request.host }}{{ app.session.get("wechat_img_url") }}',
+              imgUrl: 'http://{{ app.request.host }}/{{ app.session.get("wechat_img_url") }}',
     };
     function wxShare(data){
       wx.config({
