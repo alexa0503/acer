@@ -57,63 +57,73 @@ class DefaultController extends Controller
 			);
 		}
 		else{
+			$can_lottery = true;
 			if($type == 'b'){
-				$curl = Helper\HttpClient::get('http://cssv5.acer.com.cn/acerext/api/validatesn');
-
-			}
-
-			$em = $this->getDoctrine()->getManager();
-			$em->getConnection()->beginTransaction();
-			try{
-				$timestamp = time();
-				$date1 = date('Y-m-d',$timestamp);
-				$date2 = date('Y-m-d', strtotime('+1 day', $timestamp));
-				$repo = $em->getRepository('AppBundle:LotteryLog');
-				$qb = $repo->createQueryBuilder('a');
-				$qb->select('COUNT(a)');
-				$qb->where('a.user = :user AND a.createTime >= :date1 AND a.createTime < :date2 AND a.type = :type');
-				$qb->setParameter(':user', $user);
-				$qb->setParameter(':type', $type);
-				$qb->setParameter(':date1', new \DateTime($date1), \Doctrine\DBAL\Types\Type::DATETIME);
-				$qb->setParameter(':date2', new \DateTime($date2), \Doctrine\DBAL\Types\Type::DATETIME);
-				$count = $qb->getQuery()->getSingleScalarResult();
-				if( $count < 1){
-					$rand1 = rand(0,10);
-					$rand2 = rand(0, 10);
-					#中奖
-					if($rand1 == $rand2){
-						$award_type = rand(1,6);
-						$result = array(
-							'ret' => 0,
-							'msg' => '中奖',
-						);
-						$has_win = true;
-					}
-					else{
-						$result = array(
-							'ret' => 2000,
-							'msg' => '未中奖',
-						);
-						$has_win = false;
-						$award_type = 0;
-					}
-					$log = new Entity\LotteryLog;
-					$log->setAwardType($award_type);
-					$log->setType($type);
-			    $log->setUser($user);
-			    $log->setHasWin($has_win);
-					$log->setCreateTime(new \DateTime('now'));
-					$log->setCreateIp($request->getClientIp());
-					$em->persist($log);
-					$em->flush();
-					$result['id'] = $log->getId();
+				//$curl = Helper\HttpClient::post('http://cssv5.acer.com.cn/acerext/api/validatesn',array('SerialNumber'=>$request->get('code'),'snid'=>$request->get('code')));
+				if( $request->get('code') != '123456'){
+					$result = array(
+						'ret' => 4000,
+						'msg' => '无效的code~',
+					);
+					$can_lottery = false;
 				}
-				$em->getConnection()->commit();
 			}
-			catch (Exception $e) {
-				$em->getConnection()->rollback();
-				return new Response($e->getMessage());
+
+			if( $can_lottery == true){
+				$em = $this->getDoctrine()->getManager();
+				$em->getConnection()->beginTransaction();
+				try{
+					$timestamp = time();
+					$date1 = date('Y-m-d',$timestamp);
+					$date2 = date('Y-m-d', strtotime('+1 day', $timestamp));
+					$repo = $em->getRepository('AppBundle:LotteryLog');
+					$qb = $repo->createQueryBuilder('a');
+					$qb->select('COUNT(a)');
+					$qb->where('a.user = :user AND a.createTime >= :date1 AND a.createTime < :date2 AND a.type = :type');
+					$qb->setParameter(':user', $user);
+					$qb->setParameter(':type', $type);
+					$qb->setParameter(':date1', new \DateTime($date1), \Doctrine\DBAL\Types\Type::DATETIME);
+					$qb->setParameter(':date2', new \DateTime($date2), \Doctrine\DBAL\Types\Type::DATETIME);
+					$count = $qb->getQuery()->getSingleScalarResult();
+					if( $count < 1){
+						$rand1 = rand(0,10);
+						$rand2 = rand(0, 10);
+						#中奖
+						if($rand1 == $rand2){
+							$award_type = rand(1,6);
+							$result = array(
+								'ret' => 0,
+								'msg' => '中奖',
+							);
+							$has_win = true;
+						}
+						else{
+							$result = array(
+								'ret' => 2000,
+								'msg' => '未中奖',
+							);
+							$has_win = false;
+							$award_type = 0;
+						}
+						$log = new Entity\LotteryLog;
+						$log->setAwardType($award_type);
+						$log->setType($type);
+				    $log->setUser($user);
+				    $log->setHasWin($has_win);
+						$log->setCreateTime(new \DateTime('now'));
+						$log->setCreateIp($request->getClientIp());
+						$em->persist($log);
+						$em->flush();
+						$result['id'] = $log->getId();
+					}
+					$em->getConnection()->commit();
+				}
+				catch (Exception $e) {
+					$em->getConnection()->rollback();
+					return new Response($e->getMessage());
+				}
 			}
+				
 		}
 		
 		return new Response(json_encode($result));
